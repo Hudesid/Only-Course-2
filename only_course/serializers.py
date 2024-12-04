@@ -25,7 +25,7 @@ class CourseSerializer(serializers.ModelSerializer):
 
     def to_representation(self, instance):
         representation = super().to_representation(instance)
-        representation['teacher'] = InstructorSerializer(instance.courses).data
+        representation['teacher'] = InstructorSerializer(instance.teacher).data
         return representation
 
     def to_internal_value(self, data):
