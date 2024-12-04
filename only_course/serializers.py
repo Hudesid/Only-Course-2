@@ -6,19 +6,20 @@ class InstructorSerializer(serializers.ModelSerializer):
         model = models.Instructor
         fields = ('id', 'name', 'email', 'specialty')
 
-    def validate(self, data):
-        email = data.get('email')
-        instructor_id = data.get('id')
-        email_instance = models.Instructor.objects.filter(email=email).exists()
+    # id ni ololmadim lekin validate ishlaydi sababi modelda unique = True qilganman
 
-        if email_instance and instructor_id != email_instance.id:
-            raise serializers.ValidationError({"email": "Bu email manzil allaqachon mavjud."})
-        return data
+    # def validate(self, data):
+    #     email = data.get('email')
+    #     instructor_id = data.get("id")
+    #     email_instance = models.Instructor.objects.filter(email=email).first()
+    #     print(email_instance.id, instructor_id)
+    #
+    #     if email_instance and instructor_id != email_instance.id:
+    #         raise serializers.ValidationError({"email": "Bu email manzil allaqachon mavjud."})
+    #     return data
 
 
 class CourseSerializer(serializers.ModelSerializer):
-    teacher = InstructorSerializer(read_only=True)
-
     class Meta:
         model = models.Course
         fields = ('id', 'title', 'description', 'start_at', 'end_at', 'teacher')
