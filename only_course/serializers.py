@@ -56,7 +56,7 @@ class LessonSerializer(serializers.ModelSerializer):
 
     def to_representation(self, instance):
         representation = super().to_representation(instance)
-        representation['courses'] = CourseSerializer(instance.courses).data
+        representation['course'] = CourseSerializer(instance.course).data
         return representation
 
     def validate_order(self, value):
